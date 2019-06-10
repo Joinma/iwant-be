@@ -6,6 +6,13 @@ import com.liori.model.user.UserExample;
 import com.liori.service.base.BaseService;
 import org.springframework.stereotype.Service;
 
+/**
+ * <p>用户的接口类</p>
+ * <b>created on 2019-06-10 20:26:48</b>
+ *
+ * @author liori
+ * @since 0.1
+ */
 @Service
 public interface UserService extends BaseService<User, UserExample> {
 
@@ -25,5 +32,4 @@ public interface UserService extends BaseService<User, UserExample> {
      * @return
      */
     User login(String code);
-
 }

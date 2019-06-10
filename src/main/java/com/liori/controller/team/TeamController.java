@@ -1,10 +1,10 @@
-package com.liori.controller.user;
+package com.liori.controller.team;
 
 import com.github.pagehelper.PageInfo;
 import com.liori.common.message.MessageEnum;
 import com.liori.common.utils.message.MessageUtil;
-import com.liori.model.user.User;
-import com.liori.service.user.UserService;
+import com.liori.model.team.Team;
+import com.liori.service.team.TeamService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -18,41 +18,41 @@ import org.springframework.web.bind.annotation.*;
 
 
 /**
- * <p>用户的控制器</p>
- * <b>created on 2019-06-10 20:26:48</b>
+ * <p>团队的控制器</p>
+ * <b>created on 2019-06-10 20:52:43</b>
  *
  * @author liori
  * @since 0.1
  */
-@Api(value = "用户Controller", tags = {"用户接口"})
+@Api(value = "团队Controller", tags = {"团队接口"})
 @RestController
-@RequestMapping(value = "/api/users")
-public class UserController {
+@RequestMapping(value = "/api/teams")
+public class TeamController {
 
-    private final static Logger LOG = LoggerFactory.getLogger(UserController.class);
+    private final static Logger LOG = LoggerFactory.getLogger(TeamController.class);
 
     @Autowired
-    private UserService userService;
+    private TeamService teamService;
 
-    @ApiOperation(value = "新增用户", notes = "添加一个用户")
+    @ApiOperation(value = "新增团队", notes = "添加一个团队")
     @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> saveUser(
-            @ApiParam(name = "用户信息", required = true) @RequestBody User user) {
+    public ResponseEntity<?> saveTeam(
+            @ApiParam(name = "团队信息", required = true) @RequestBody Team team) {
         try {
-            final User insertedUser = userService.saveEntitySelective(user);
-            return MessageUtil.success(insertedUser, HttpStatus.OK);
+            final Team insertedTeam = teamService.saveEntitySelective(team);
+            return MessageUtil.success(insertedTeam, HttpStatus.OK);
         } catch (Throwable throwable) {
             LOG.error(MessageEnum.FAIL_TO_CREATE.getMessage(), throwable);
             return MessageUtil.error(MessageEnum.FAIL_TO_CREATE, throwable);
         }
     }
 
-    @ApiOperation(value = "删除单个用户", notes = "根据 id 删除单个用户信息")
+    @ApiOperation(value = "删除单个团队", notes = "根据 id 删除单个团队信息")
     @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> deleteUser(
+    public ResponseEntity<?> deleteTeam(
             @ApiParam(value = "id", required = true) @PathVariable(value = "id") String id) {
         try {
-            final String deletedId = userService.deleteEntity(id);
+            final String deletedId = teamService.deleteEntity(id);
             return MessageUtil.success(deletedId, HttpStatus.OK);
         } catch (Throwable throwable) {
             LOG.error(MessageEnum.FAIL_TO_UPDATE.getMessage(), throwable);
@@ -60,57 +60,44 @@ public class UserController {
         }
     }
 
-    @ApiOperation(value = "获取单个用户", notes = "根据 id 获取用户信息")
+    @ApiOperation(value = "获取单个团队", notes = "根据 id 获取团队信息")
     @GetMapping(value = "/query/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> getSingleUser(
+    public ResponseEntity<?> getSingleTeam(
             @ApiParam(value = "id", required = true) @PathVariable(value = "id") String id) {
         try {
-            final User user = userService.selectSingleEntity(id);
-            return MessageUtil.success(user, HttpStatus.OK);
+            final Team team = teamService.selectSingleEntity(id);
+            return MessageUtil.success(team, HttpStatus.OK);
         } catch (Throwable throwable) {
             LOG.error(MessageEnum.FAIL_TO_QUERY.getMessage(), throwable);
             return MessageUtil.error(MessageEnum.FAIL_TO_QUERY, throwable);
         }
     }
 
-    @ApiOperation(value = "根据参数分页获取用户", notes = "根据参数分页获取用户信息")
+    @ApiOperation(value = "根据参数分页获取团队", notes = "根据参数分页获取团队信息")
     @GetMapping(value = "/query", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> getusers(
+    public ResponseEntity<?> getteams(
             @ApiParam(value = "页码", defaultValue = "1") @RequestParam(value = "pageNum", defaultValue = "1", required = false) Integer pageNum,
             @ApiParam(value = "每页加载量", defaultValue = "10") @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize) {
         try {
-            User user = new User();
-            final PageInfo<User> users = userService.selectUsersByExample(user, pageNum, pageSize);
-            return MessageUtil.success(users, HttpStatus.OK);
+            Team team = new Team();
+            final PageInfo<Team> teams = teamService.selectTeamsByExample(team, pageNum, pageSize);
+            return MessageUtil.success(teams, HttpStatus.OK);
         } catch (Throwable throwable) {
             LOG.error(MessageEnum.FAIL_TO_QUERY.getMessage(), throwable);
             return MessageUtil.error(MessageEnum.FAIL_TO_QUERY, throwable);
         }
     }
 
-    @ApiOperation(value = "更新用户", notes = "更新用户信息")
+    @ApiOperation(value = "更新团队", notes = "更新团队信息")
     @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> updateUser(
-          @ApiParam(name = "用户信息", required = true) @RequestBody User user) {
+    public ResponseEntity<?> updateTeam(
+          @ApiParam(name = "团队信息", required = true) @RequestBody Team team) {
         try {
-            final User updatedUser = userService.updateEntitySelective(user);
-            return MessageUtil.success(updatedUser, HttpStatus.OK);
+            final Team updatedTeam = teamService.updateEntitySelective(team);
+            return MessageUtil.success(updatedTeam, HttpStatus.OK);
         } catch (Throwable throwable) {
             LOG.error(MessageEnum.FAIL_TO_UPDATE.getMessage(), throwable);
             return MessageUtil.error(MessageEnum.FAIL_TO_UPDATE, throwable);
-        }
-    }
-
-    @ApiOperation(value = "用户登录", notes = "用户登录")
-    @GetMapping(value = "/login", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> login(
-            @ApiParam(name = "code", required = true) @RequestParam(name = "code", defaultValue = "") String code) {
-        try {
-            final User user = userService.login(code);
-            return MessageUtil.success(user, HttpStatus.OK);
-        } catch (Throwable throwable) {
-            LOG.error(MessageEnum.FAIL_TO_LOGIN.getMessage(), throwable);
-            return MessageUtil.error(MessageEnum.FAIL_TO_LOGIN, throwable);
         }
     }
 }

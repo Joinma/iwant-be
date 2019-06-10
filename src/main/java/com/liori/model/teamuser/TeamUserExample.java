@@ -1,16 +1,16 @@
-package com.liori.model.user;
+package com.liori.model.teamuser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserExample {
+public class TeamUserExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public UserExample() {
+    public TeamUserExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -414,143 +414,143 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andNickNameIsNull() {
-            addCriterion("nick_name is null");
+        public Criteria andTeamIdIsNull() {
+            addCriterion("team_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andNickNameIsNotNull() {
-            addCriterion("nick_name is not null");
+        public Criteria andTeamIdIsNotNull() {
+            addCriterion("team_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andNickNameEqualTo(String value) {
-            addCriterion("nick_name =", value, "nickName");
+        public Criteria andTeamIdEqualTo(String value) {
+            addCriterion("team_id =", value, "teamId");
             return (Criteria) this;
         }
 
-        public Criteria andNickNameNotEqualTo(String value) {
-            addCriterion("nick_name <>", value, "nickName");
+        public Criteria andTeamIdNotEqualTo(String value) {
+            addCriterion("team_id <>", value, "teamId");
             return (Criteria) this;
         }
 
-        public Criteria andNickNameGreaterThan(String value) {
-            addCriterion("nick_name >", value, "nickName");
+        public Criteria andTeamIdGreaterThan(String value) {
+            addCriterion("team_id >", value, "teamId");
             return (Criteria) this;
         }
 
-        public Criteria andNickNameGreaterThanOrEqualTo(String value) {
-            addCriterion("nick_name >=", value, "nickName");
+        public Criteria andTeamIdGreaterThanOrEqualTo(String value) {
+            addCriterion("team_id >=", value, "teamId");
             return (Criteria) this;
         }
 
-        public Criteria andNickNameLessThan(String value) {
-            addCriterion("nick_name <", value, "nickName");
+        public Criteria andTeamIdLessThan(String value) {
+            addCriterion("team_id <", value, "teamId");
             return (Criteria) this;
         }
 
-        public Criteria andNickNameLessThanOrEqualTo(String value) {
-            addCriterion("nick_name <=", value, "nickName");
+        public Criteria andTeamIdLessThanOrEqualTo(String value) {
+            addCriterion("team_id <=", value, "teamId");
             return (Criteria) this;
         }
 
-        public Criteria andNickNameLike(String value) {
-            addCriterion("nick_name like", value, "nickName");
+        public Criteria andTeamIdLike(String value) {
+            addCriterion("team_id like", value, "teamId");
             return (Criteria) this;
         }
 
-        public Criteria andNickNameNotLike(String value) {
-            addCriterion("nick_name not like", value, "nickName");
+        public Criteria andTeamIdNotLike(String value) {
+            addCriterion("team_id not like", value, "teamId");
             return (Criteria) this;
         }
 
-        public Criteria andNickNameIn(List<String> values) {
-            addCriterion("nick_name in", values, "nickName");
+        public Criteria andTeamIdIn(List<String> values) {
+            addCriterion("team_id in", values, "teamId");
             return (Criteria) this;
         }
 
-        public Criteria andNickNameNotIn(List<String> values) {
-            addCriterion("nick_name not in", values, "nickName");
+        public Criteria andTeamIdNotIn(List<String> values) {
+            addCriterion("team_id not in", values, "teamId");
             return (Criteria) this;
         }
 
-        public Criteria andNickNameBetween(String value1, String value2) {
-            addCriterion("nick_name between", value1, value2, "nickName");
+        public Criteria andTeamIdBetween(String value1, String value2) {
+            addCriterion("team_id between", value1, value2, "teamId");
             return (Criteria) this;
         }
 
-        public Criteria andNickNameNotBetween(String value1, String value2) {
-            addCriterion("nick_name not between", value1, value2, "nickName");
+        public Criteria andTeamIdNotBetween(String value1, String value2) {
+            addCriterion("team_id not between", value1, value2, "teamId");
             return (Criteria) this;
         }
 
-        public Criteria andOpenIdIsNull() {
-            addCriterion("open_id is null");
+        public Criteria andUserIdIsNull() {
+            addCriterion("user_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andOpenIdIsNotNull() {
-            addCriterion("open_id is not null");
+        public Criteria andUserIdIsNotNull() {
+            addCriterion("user_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andOpenIdEqualTo(String value) {
-            addCriterion("open_id =", value, "openId");
+        public Criteria andUserIdEqualTo(String value) {
+            addCriterion("user_id =", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andOpenIdNotEqualTo(String value) {
-            addCriterion("open_id <>", value, "openId");
+        public Criteria andUserIdNotEqualTo(String value) {
+            addCriterion("user_id <>", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andOpenIdGreaterThan(String value) {
-            addCriterion("open_id >", value, "openId");
+        public Criteria andUserIdGreaterThan(String value) {
+            addCriterion("user_id >", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andOpenIdGreaterThanOrEqualTo(String value) {
-            addCriterion("open_id >=", value, "openId");
+        public Criteria andUserIdGreaterThanOrEqualTo(String value) {
+            addCriterion("user_id >=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andOpenIdLessThan(String value) {
-            addCriterion("open_id <", value, "openId");
+        public Criteria andUserIdLessThan(String value) {
+            addCriterion("user_id <", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andOpenIdLessThanOrEqualTo(String value) {
-            addCriterion("open_id <=", value, "openId");
+        public Criteria andUserIdLessThanOrEqualTo(String value) {
+            addCriterion("user_id <=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andOpenIdLike(String value) {
-            addCriterion("open_id like", value, "openId");
+        public Criteria andUserIdLike(String value) {
+            addCriterion("user_id like", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andOpenIdNotLike(String value) {
-            addCriterion("open_id not like", value, "openId");
+        public Criteria andUserIdNotLike(String value) {
+            addCriterion("user_id not like", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andOpenIdIn(List<String> values) {
-            addCriterion("open_id in", values, "openId");
+        public Criteria andUserIdIn(List<String> values) {
+            addCriterion("user_id in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andOpenIdNotIn(List<String> values) {
-            addCriterion("open_id not in", values, "openId");
+        public Criteria andUserIdNotIn(List<String> values) {
+            addCriterion("user_id not in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andOpenIdBetween(String value1, String value2) {
-            addCriterion("open_id between", value1, value2, "openId");
+        public Criteria andUserIdBetween(String value1, String value2) {
+            addCriterion("user_id between", value1, value2, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andOpenIdNotBetween(String value1, String value2) {
-            addCriterion("open_id not between", value1, value2, "openId");
+        public Criteria andUserIdNotBetween(String value1, String value2) {
+            addCriterion("user_id not between", value1, value2, "userId");
             return (Criteria) this;
         }
     }

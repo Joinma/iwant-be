@@ -1,4 +1,9 @@
+DROP TABLE IF EXISTS `t_plan`;
+DROP TABLE IF EXISTS `t_team_user`;
+DROP TABLE IF EXISTS `t_wish_list`;
 DROP TABLE IF EXISTS `t_user`;
+DROP TABLE IF EXISTS `t_team`;
+
 CREATE TABLE IF NOT EXISTS `t_user`(
   `id` VARCHAR(36) NOT NULL COMMENT '表主键',
   `create_time` BIGINT COMMENT '添加时间',
@@ -11,7 +16,6 @@ CREATE TABLE IF NOT EXISTS `t_user`(
   PRIMARY KEY (`id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='用户表' ;
 
-DROP TABLE IF EXISTS `t_team`;
 CREATE TABLE IF NOT EXISTS `t_team`(
   `id` VARCHAR(36) NOT NULL COMMENT '表主键',
   `create_time` BIGINT COMMENT '添加时间',
@@ -22,7 +26,6 @@ CREATE TABLE IF NOT EXISTS `t_team`(
   PRIMARY KEY (`id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='团队表' ;
 
-DROP TABLE IF EXISTS `t_team_user`;
 CREATE TABLE IF NOT EXISTS `t_team_user`(
   `id` VARCHAR(36) NOT NULL COMMENT '表主键',
   `create_time` BIGINT COMMENT '添加时间',
@@ -31,10 +34,11 @@ CREATE TABLE IF NOT EXISTS `t_team_user`(
   `sequence` INT NOT NULL DEFAULT 99 COMMENT '排序',
   `team_id` VARCHAR(36) NOT NULL COMMENT '团队表主键',
   `user_id` VARCHAR(36) NOT NULL COMMENT '用户表主键',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`team_id`) REFERENCES `t_team`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`user_id`) REFERENCES `t_user`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='团队成员表' ;
 
-DROP TABLE IF EXISTS `t_plan`;
 CREATE TABLE IF NOT EXISTS `t_plan`(
   `id` VARCHAR(36) NOT NULL COMMENT '表主键',
   `create_time` BIGINT COMMENT '添加时间',
@@ -47,10 +51,10 @@ CREATE TABLE IF NOT EXISTS `t_plan`(
   `title` VARCHAR(50) COMMENT '计划标题',
   `reward` VARCHAR(512) COMMENT '奖励',
   `punish` VARCHAR(512) COMMENT '惩罚',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`team_user_id`) REFERENCES `t_team_user`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='计划表' ;
 
-DROP TABLE IF EXISTS `t_wish_list`;
 CREATE TABLE IF NOT EXISTS `t_wish_list`(
   `id` VARCHAR(36) NOT NULL COMMENT '表主键',
   `create_time` BIGINT COMMENT '添加时间',
@@ -59,7 +63,8 @@ CREATE TABLE IF NOT EXISTS `t_wish_list`(
   `sequence` INT NOT NULL DEFAULT 99 COMMENT '排序',
   `content` VARCHAR(255) NOT NULL COMMENT '愿望内容',
   `type` INT(1) NOT NULL DEFAULT 0 COMMENT '0：仅自己可见 1：指定团队可见',
-  `team_id` VARCHAR(36) COMMENT '团队表主键',
-  PRIMARY KEY (`id`)
+  `user_id` VARCHAR(36) COMMENT '用户表主键',
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `t_user`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='愿望清单表' ;
 

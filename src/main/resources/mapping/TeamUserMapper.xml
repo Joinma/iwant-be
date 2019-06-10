@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.liori.mapper.user.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.liori.model.user.User" >
+<mapper namespace="com.liori.mapper.teamuser.TeamUserMapper" >
+  <resultMap id="BaseResultMap" type="com.liori.model.teamuser.TeamUser" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="BIGINT" />
     <result column="update_time" property="updateTime" jdbcType="BIGINT" />
     <result column="enabled" property="enabled" jdbcType="INTEGER" />
     <result column="sequence" property="sequence" jdbcType="INTEGER" />
-    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
-    <result column="open_id" property="openId" jdbcType="VARCHAR" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.liori.model.user.User" extends="BaseResultMap" >
-    <result column="avatar_url" property="avatarUrl" jdbcType="LONGVARCHAR" />
+    <result column="team_id" property="teamId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -72,21 +69,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, create_time, update_time, enabled, sequence, nick_name, open_id
+    id, create_time, update_time, enabled, sequence, team_id, user_id
   </sql>
-  <sql id="Blob_Column_List" >
-    avatar_url
-  </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.liori.model.user.UserExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.liori.model.teamuser.TeamUserExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from t_user
+    from t_team_user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -94,49 +86,32 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.liori.model.user.UserExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    'true' as QUERYID,
-    <include refid="Base_Column_List" />
-    from t_user
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from t_user
+    from t_team_user
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from t_user
+    delete from t_team_user
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.liori.model.user.UserExample" >
-    delete from t_user
+  <delete id="deleteByExample" parameterType="com.liori.model.teamuser.TeamUserExample" >
+    delete from t_team_user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.liori.model.user.User" >
-    insert into t_user (id, create_time, update_time, 
-      enabled, sequence, nick_name, 
-      open_id, avatar_url)
+  <insert id="insert" parameterType="com.liori.model.teamuser.TeamUser" >
+    insert into t_team_user (id, create_time, update_time, 
+      enabled, sequence, team_id, 
+      user_id)
     values (#{id,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, 
-      #{enabled,jdbcType=INTEGER}, #{sequence,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, 
-      #{openId,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=LONGVARCHAR})
+      #{enabled,jdbcType=INTEGER}, #{sequence,jdbcType=INTEGER}, #{teamId,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.liori.model.user.User" >
-    insert into t_user
+  <insert id="insertSelective" parameterType="com.liori.model.teamuser.TeamUser" >
+    insert into t_team_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -153,14 +128,11 @@
       <if test="sequence != null" >
         sequence,
       </if>
-      <if test="nickName != null" >
-        nick_name,
+      <if test="teamId != null" >
+        team_id,
       </if>
-      <if test="openId != null" >
-        open_id,
-      </if>
-      <if test="avatarUrl != null" >
-        avatar_url,
+      <if test="userId != null" >
+        user_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -179,25 +151,22 @@
       <if test="sequence != null" >
         #{sequence,jdbcType=INTEGER},
       </if>
-      <if test="nickName != null" >
-        #{nickName,jdbcType=VARCHAR},
+      <if test="teamId != null" >
+        #{teamId,jdbcType=VARCHAR},
       </if>
-      <if test="openId != null" >
-        #{openId,jdbcType=VARCHAR},
-      </if>
-      <if test="avatarUrl != null" >
-        #{avatarUrl,jdbcType=LONGVARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.liori.model.user.UserExample" resultType="java.lang.Integer" >
-    select count(*) from t_user
+  <select id="countByExample" parameterType="com.liori.model.teamuser.TeamUserExample" resultType="java.lang.Integer" >
+    select count(*) from t_team_user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update t_user
+    update t_team_user
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=VARCHAR},
@@ -214,49 +183,32 @@
       <if test="record.sequence != null" >
         sequence = #{record.sequence,jdbcType=INTEGER},
       </if>
-      <if test="record.nickName != null" >
-        nick_name = #{record.nickName,jdbcType=VARCHAR},
+      <if test="record.teamId != null" >
+        team_id = #{record.teamId,jdbcType=VARCHAR},
       </if>
-      <if test="record.openId != null" >
-        open_id = #{record.openId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.avatarUrl != null" >
-        avatar_url = #{record.avatarUrl,jdbcType=LONGVARCHAR},
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update t_user
-    set id = #{record.id,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=BIGINT},
-      update_time = #{record.updateTime,jdbcType=BIGINT},
-      enabled = #{record.enabled,jdbcType=INTEGER},
-      sequence = #{record.sequence,jdbcType=INTEGER},
-      nick_name = #{record.nickName,jdbcType=VARCHAR},
-      open_id = #{record.openId,jdbcType=VARCHAR},
-      avatar_url = #{record.avatarUrl,jdbcType=LONGVARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
   <update id="updateByExample" parameterType="map" >
-    update t_user
+    update t_team_user
     set id = #{record.id,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=BIGINT},
       update_time = #{record.updateTime,jdbcType=BIGINT},
       enabled = #{record.enabled,jdbcType=INTEGER},
       sequence = #{record.sequence,jdbcType=INTEGER},
-      nick_name = #{record.nickName,jdbcType=VARCHAR},
-      open_id = #{record.openId,jdbcType=VARCHAR}
+      team_id = #{record.teamId,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.liori.model.user.User" >
-    update t_user
+  <update id="updateByPrimaryKeySelective" parameterType="com.liori.model.teamuser.TeamUser" >
+    update t_team_user
     <set >
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=BIGINT},
@@ -270,37 +222,23 @@
       <if test="sequence != null" >
         sequence = #{sequence,jdbcType=INTEGER},
       </if>
-      <if test="nickName != null" >
-        nick_name = #{nickName,jdbcType=VARCHAR},
+      <if test="teamId != null" >
+        team_id = #{teamId,jdbcType=VARCHAR},
       </if>
-      <if test="openId != null" >
-        open_id = #{openId,jdbcType=VARCHAR},
-      </if>
-      <if test="avatarUrl != null" >
-        avatar_url = #{avatarUrl,jdbcType=LONGVARCHAR},
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.liori.model.user.User" >
-    update t_user
+  <update id="updateByPrimaryKey" parameterType="com.liori.model.teamuser.TeamUser" >
+    update t_team_user
     set create_time = #{createTime,jdbcType=BIGINT},
       update_time = #{updateTime,jdbcType=BIGINT},
       enabled = #{enabled,jdbcType=INTEGER},
       sequence = #{sequence,jdbcType=INTEGER},
-      nick_name = #{nickName,jdbcType=VARCHAR},
-      open_id = #{openId,jdbcType=VARCHAR},
-      avatar_url = #{avatarUrl,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.liori.model.user.User" >
-    update t_user
-    set create_time = #{createTime,jdbcType=BIGINT},
-      update_time = #{updateTime,jdbcType=BIGINT},
-      enabled = #{enabled,jdbcType=INTEGER},
-      sequence = #{sequence,jdbcType=INTEGER},
-      nick_name = #{nickName,jdbcType=VARCHAR},
-      open_id = #{openId,jdbcType=VARCHAR}
+      team_id = #{teamId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

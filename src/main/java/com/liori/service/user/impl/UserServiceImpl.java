@@ -14,9 +14,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+
 import java.util.List;
 
 
+/**
+ * <p>用户的接口实现类</p>
+ * <b>created on 2019-06-10 20:26:48</b>
+ *
+ * @author liori
+ * @since 0.1
+ */
 @Service
 public class UserServiceImpl extends BaseServiceImpl<User, UserExample> implements UserService {
 
@@ -27,6 +35,15 @@ public class UserServiceImpl extends BaseServiceImpl<User, UserExample> implemen
     @Override
     public BaseMapper<User, UserExample> getSpecificMapper() {
         return userMapper;
+    }
+
+    @Override
+    public PageInfo<User> selectUsersByExample(User user, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+
+        UserExample userExample = new UserExample();
+        List<User> users = userMapper.selectByExample(userExample);
+        return new PageInfo<>(users);
     }
 
     @Override
@@ -42,16 +59,4 @@ public class UserServiceImpl extends BaseServiceImpl<User, UserExample> implemen
         return user;
     }
 
-    @Override
-    public PageInfo<User> selectUsersByExample(User user, Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-
-        UserExample userExample = new UserExample();
-        UserExample.Criteria criteria = userExample.createCriteria();
-        if (!ObjectUtils.isEmpty(user.getNickName())) {
-            criteria.andNickNameEqualTo(user.getNickName());
-        }
-        List<User> users = userMapper.selectByExample(userExample);
-        return new PageInfo<>(users);
-    }
 }

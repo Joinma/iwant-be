@@ -39,8 +39,8 @@ public class UploadController {
             final String path = UploadUtil.uploadSingleFile(multipartFile, preSavePath, pathName);
             return MessageUtil.success(path, HttpStatus.OK);
         } catch (Throwable throwable) {
-            LOG.error(MessageEnum.UPLOAD_FAILED.getMessage(), throwable);
-            return MessageUtil.error(MessageEnum.UPLOAD_FAILED, throwable);
+            LOG.error(MessageEnum.FAIL_TO_UPLOAD.getMessage(), throwable);
+            return MessageUtil.error(MessageEnum.FAIL_TO_UPLOAD, throwable);
         }
     }
 }

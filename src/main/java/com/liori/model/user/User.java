@@ -6,6 +6,13 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 
+/**
+* <p>用户的实体类</p>
+* <b>created on 2019-06-10 20:32:31</b>
+*
+* @author liori
+* @since 0.1
+*/
 @ApiModel("用户")
 public class User extends BaseEntity implements Serializable {
 
@@ -17,9 +24,6 @@ public class User extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "微信头像url")
     private String avatarUrl;
-
-    @ApiModelProperty(value = "每月预算")
-    private String calculation;
 
 
     public String getNickName() {
@@ -44,14 +48,6 @@ public class User extends BaseEntity implements Serializable {
 
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
-    }
-
-    public String getCalculation() {
-        return calculation;
-    }
-
-    public void setCalculation(String calculation) {
-        this.calculation = calculation;
     }
 
 }
