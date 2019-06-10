@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liori.mapper.user.UserMapper">
+  <resultMap id="BaseResultMap" type="com.liori.model.user.User">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+    <result column="enabled" jdbcType="INTEGER" property="enabled" />
+    <result column="sequence" jdbcType="INTEGER" property="sequence" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="open_id" jdbcType="VARCHAR" property="openId" />
+    <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
+    <result column="calculation" jdbcType="VARCHAR" property="calculation" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, create_time, update_time, enabled, sequence, nick_name, open_id, avatar_url,
+    calculation
+  </sql>
+  <select id="selectByExample" parameterType="com.liori.model.user.UserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.liori.model.user.UserExample">
+    delete from t_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.liori.model.user.User">
+    insert into t_user (id, create_time, update_time,
+                        enabled, sequence, nick_name,
+                        open_id, avatar_url, calculation
+    )
+    values (#{id,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT},
+            #{enabled,jdbcType=INTEGER}, #{sequence,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR},
+            #{openId,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, #{calculation,jdbcType=VARCHAR}
+           )
+  </insert>
+  <insert id="insertSelective" parameterType="com.liori.model.user.User">
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+      <if test="sequence != null">
+        sequence,
+      </if>
+      <if test="nickName != null">
+        nick_name,
+      </if>
+      <if test="openId != null">
+        open_id,
+      </if>
+      <if test="avatarUrl != null">
+        avatar_url,
+      </if>
+      <if test="calculation != null">
+        calculation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="sequence != null">
+        #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null">
+        #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="calculation != null">
+        #{calculation,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.liori.model.user.UserExample" resultType="java.lang.Integer">
+    select count(*) from t_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_user
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.enabled != null">
+        enabled = #{record.enabled,jdbcType=INTEGER},
+      </if>
+      <if test="record.sequence != null">
+        sequence = #{record.sequence,jdbcType=INTEGER},
+      </if>
+      <if test="record.nickName != null">
+        nick_name = #{record.nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openId != null">
+        open_id = #{record.openId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avatarUrl != null">
+        avatar_url = #{record.avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.calculation != null">
+        calculation = #{record.calculation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_user
+    set id = #{record.id,jdbcType=VARCHAR},
+    create_time = #{record.createTime,jdbcType=BIGINT},
+    update_time = #{record.updateTime,jdbcType=BIGINT},
+    enabled = #{record.enabled,jdbcType=INTEGER},
+    sequence = #{record.sequence,jdbcType=INTEGER},
+    nick_name = #{record.nickName,jdbcType=VARCHAR},
+    open_id = #{record.openId,jdbcType=VARCHAR},
+    avatar_url = #{record.avatarUrl,jdbcType=VARCHAR},
+    calculation = #{record.calculation,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liori.model.user.User">
+    update t_user
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="sequence != null">
+        sequence = #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null">
+        avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="calculation != null">
+        calculation = #{calculation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liori.model.user.User">
+    update t_user
+    set create_time = #{createTime,jdbcType=BIGINT},
+        update_time = #{updateTime,jdbcType=BIGINT},
+        enabled = #{enabled,jdbcType=INTEGER},
+        sequence = #{sequence,jdbcType=INTEGER},
+        nick_name = #{nickName,jdbcType=VARCHAR},
+        open_id = #{openId,jdbcType=VARCHAR},
+        avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+        calculation = #{calculation,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+    <!-- 批量添加 -->
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into t_user (id, create_time, update_time,
+        enabled, sequence, nick_name,
+        open_id, avatar_url, calculation
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id,jdbcType=VARCHAR}, #{item.createTime,jdbcType=BIGINT}, #{item.updateTime,jdbcType=BIGINT},
+            #{item.enabled,jdbcType=INTEGER}, #{item.sequence,jdbcType=INTEGER}, #{item.nickName,jdbcType=VARCHAR},
+            #{item.openId,jdbcType=VARCHAR}, #{item.avatarUrl,jdbcType=VARCHAR}, #{item.calculation,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+</mapper>
